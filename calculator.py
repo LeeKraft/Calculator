@@ -26,4 +26,4 @@ def run_calculator():
     print(result)
 
 # run_calculator()
-print("Hello World!")
+print("Success!")
