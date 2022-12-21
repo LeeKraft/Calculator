@@ -38,7 +38,7 @@ pipeline {
 		stage("connect to remote host and run"){
 			steps {
 				echo "======== connect and run ========"
-				// sh 'ssh root@server \' docker run -dit --name web-server -p 8080:80 webapache2 \' '
+				sh 'ssh root@server \' docker stop web-server && docker run -dit --name web-server -p 8080:80 webapache2:1.0 \' '
 			}
 		}
 	}
