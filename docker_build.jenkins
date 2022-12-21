@@ -38,6 +38,7 @@ pipeline {
 			steps {
 				echo "======== connect to server ========"
 				sh 'ssh root@server'
+				sh 'hostname'
 			}
 		}
 		stage("docker run containers"){
