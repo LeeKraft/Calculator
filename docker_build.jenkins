@@ -14,7 +14,7 @@ pipeline {
 			steps {
 				echo "======== start building web image ========"
 				dir ('web') {
-					sh 'docker build .'
+					sh 'docker build -t webapache2:1.0 .'
 				}
 			}
 		}
@@ -22,9 +22,27 @@ pipeline {
 			steps {
 				echo "======== start building app image ========"
 				dir ('app') {
-					sh 'docker build .'
+					sh 'docker build -t calculatorimg:1.0 .'
 				}
 			}
 		}
+		stage("docker save and copy"){
+			steps {
+				echo "======== starting save&copy ========"
+				sh 'docker image save -o webimg webapache2'
+				sh 'docker image save -o appimg calculatorimg'
+				// sh 'scp'
+				sh 'hostname'
+			}
+		// docker image load -i <FILE>			
+		}
+		stage("connect to remote host"){
+			steps {
+				echo "======== connect to server ========"
+				sh 'hostname'
+				// sh 'ssh root@server'
+			}
+		}
+		// stage("docker run containers"){}
 	}
 }
