@@ -9,7 +9,7 @@ pipeline {
 		timestamps()
 		}
 	stages {
-		stage("create docker web image") {
+		stage("Create docker web image") {
 			steps {
 				echo "======== start building web image ========"
 				dir ('web') {
@@ -17,7 +17,7 @@ pipeline {
 				}
 			}
 		}
-		stage("create docker app image") {
+		stage("Create docker app image") {
 			steps {
 				echo "======== start building app image ========"
 				dir ('app') {
@@ -25,12 +25,12 @@ pipeline {
 				}
 			}
 		}
-		stage("docker save and copy"){
+		stage("Docker save and copy"){
 			steps {
 				echo "======== starting save&copy ========"
 				sh 'docker image save -o webimg webapache2'
 				sh 'docker image save -o appimg calculatorimg'
-				// sh 'scp'
+				sh 'scp webimg appimg root@server:/home/larry/images'
 				sh 'hostname'
 			}
 		// docker image load -i <FILE>			
