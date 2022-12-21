@@ -31,17 +31,19 @@ pipeline {
 				sh 'docker image save -o webimg webapache2'
 				sh 'docker image save -o appimg calculatorimg'
 				sh 'scp webimg appimg root@server:/home/larry/images'
-				sh 'hostname'
 			}
 		// docker image load -i <FILE>			
 		}
 		stage("connect to remote host"){
 			steps {
 				echo "======== connect to server ========"
-				sh 'hostname'
-				// sh 'ssh root@server'
+				sh 'ssh root@server'
 			}
 		}
-		// stage("docker run containers"){}
+		stage("docker run containers"){
+			steps {
+				sh 'hostname'
+			}
+		}
 	}
 }
