@@ -32,7 +32,7 @@ pipeline {
 				sh 'docker image save -o appimg calculatorimg'
 				sh 'scp webimg appimg root@server:/home/larry/images'
 			}
-		// docker image load -i <FILE>			
+		// docker image load -i <FILE>		
 		}
 		stage("connect to remote host"){
 			steps {
