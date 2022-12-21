@@ -37,7 +37,7 @@ pipeline {
 		stage("connect to remote host"){
 			steps {
 				echo "======== connect to server ========"
-				sh 'ssh root@server'
+				sh 'ssh root@server \'hostname\' '
 				sh 'hostname'
 			}
 		}
