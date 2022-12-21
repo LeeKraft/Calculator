@@ -25,25 +25,20 @@ pipeline {
 				}
 			}
 		}
-		stage("Docker save and copy"){
+		stage("Docker save copy and load"){
 			steps {
-				echo "======== starting save&copy ========"
+				echo "======== starting save&copy&load ========"
 				sh 'docker image save -o webimg webapache2'
 				sh 'docker image save -o appimg calculatorimg'
 				sh 'scp webimg appimg root@server:/home/larry/images'
-			}
-		// docker image load -i <FILE>		
+				sh 'ssh root@server \' docker image load -i /home/larry/images/webimg \' '
+				sh 'ssh root@server \' docker image load -i /home/larry/images/appimg \' '
+			}	
 		}
-		stage("connect to remote host"){
+		stage("connect to remote host and run"){
 			steps {
-				echo "======== connect to server ========"
-				sh 'ssh root@server \'hostname\' '
-				sh 'hostname'
-			}
-		}
-		stage("docker run containers"){
-			steps {
-				sh 'hostname'
+				echo "======== connect and run ========"
+				// sh 'ssh root@server \' docker run -dit --name web-server -p 8080:80 webapache2 \' '
 			}
 		}
 	}
